@@ -1,6 +1,6 @@
 # shiny Solr App #
 
-This shiny app lets users query Field Museum Anthropology, Botany, and Zoology Solr cores.
+A semi-functional shiny app to query Field Museum Anthropology, Botany, and Zoology Solr cores.
 
 Query-options include
 
