@@ -9,3 +9,7 @@ For common steps in EMu-data-handling workflows that are cumbersome in Excel/Acc
 ### Web-Scraping Template-Scripts? ###
 
 For salvaging web-content, try out these maybe-not-so-general-purpose Python scripts...
+
+### Bokeh & Shiny Scripts? ###
+
+For interactively visualizing some datasets...
