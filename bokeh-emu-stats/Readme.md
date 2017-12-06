@@ -1,3 +1,6 @@
 # Bokeh EMu Stats - Test Scripts #
 
-Testing interactive visualizations of EMu data using Bokeh.
+Interactive visualizations of EMu data using Bokeh.
+
+Following from material covered in Peter Wang's Bokeh webinar:
+* http://go.continuum.io/hassle-free-data-science-apps/
