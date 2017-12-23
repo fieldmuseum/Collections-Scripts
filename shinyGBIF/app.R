@@ -92,8 +92,8 @@ server <- function(input, output, session) {
       ggplot(FMNHfac4$facet$institutionCode, 
              aes(FMNHfac4$facet$institutionCode$name, 
                  FMNHfac4$facet$institutionCode$count)) +
-        geom_bar(stat="identity") +
         theme(axis.text.x=element_text(angle=65,hjust=1,vjust=0.4)) +
+        geom_bar(stat="identity") +
         labs(title = paste("Counts of", input$colcodIn, "by institution"))
       
     })
