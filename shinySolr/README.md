@@ -1,5 +1,7 @@
 # shiny Solr App #
 
+A demo of this script is running [here](http://10.10.10.247:3838/SOLRshiny/)
+
 A semi-functional shiny app to query Field Museum Anthropology, Botany, and Zoology Solr cores.
 
 Query-options include
