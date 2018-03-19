@@ -1,6 +1,5 @@
-# # THIS
-
-# Trying out shiny
+# Shiny test-app to search/summarize GBIF data
+# ...following Dean Attali tutorial:
 # http://deanattali.com/blog/building-shiny-apps-tutorial/
 
 # install.packages("shiny")
