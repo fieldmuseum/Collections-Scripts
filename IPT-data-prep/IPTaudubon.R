@@ -1,9 +1,11 @@
 # EMu Data Prep Script -- to prep Audubon Core dataset
 
+# [Stuff to update/fix in script:]
+# [Need to manually check lines 48 & 68 & fix # of united keyseq columns (if <> 3)]
 
 # STEP 1a: Retrieve dataset in EMu/ecatalogue 
 #          (e.g., for Fishes, find all Fishes catalogue records where Publish=OK & HasMM=Y)
-# STEP 1b: Report those records using "IPT MM test group2" report with these fields:
+# STEP 1b: Report those records using "IPT Audubon Core" report with these fields:
 # 
 #  [1] "Group1_key"                "ecatalogue_key"            "CATirn" (ecatalogue)              
 #  [4] "DarGlobalUniqueIdentifier" "AdmGUIDValue_tab"          "MulMimeType"              
@@ -26,15 +28,15 @@ library("tidyr")
 # getwd()
 # script.dir <- dirname(sys.frame(1)$ofile)
 
-# point to your csv's directory
-setwd("C:\\Users\\kwebbink\\Desktop\\MMaudCoreTest\\MMfishes\\testFull4MM")
+# # point to your csv's directory
+# setwd("C:\\Users\\kwebbink\\Desktop\\MMaudCoreTest\\MMfishes\\testFull4MM")
 
 
 # point to your csv file(s)
-CatMMGroup1 <- read.csv(file="Group1.csv", stringsAsFactors = F)
-MMcreator <- read.csv(file="MulMulti.csv", stringsAsFactors = F)
-RIGowner <- read.csv(file="RigOwner.csv", stringsAsFactors = F)
-SecDepar <- read.csv(file="SecDepar.csv", stringsAsFactors = F)
+CatMMGroup1 <- read.csv(file="data01raw/Group1.csv", stringsAsFactors = F, fileEncoding = "utf8")
+MMcreator <- read.csv(file="data01raw/MulMulti.csv", stringsAsFactors = F, fileEncoding = "utf8")
+RIGowner <- read.csv(file="data01raw/RigOwner.csv", stringsAsFactors = F, fileEncoding = "utf8")
+SecDepar <- read.csv(file="data01raw/SecDepar.csv", stringsAsFactors = F, fileEncoding = "utf8")
 
 
 # Concatenate multiple creators into a single field
@@ -42,7 +44,14 @@ MMcreator$keyseq <- sequence(rle(as.character(MMcreator$Group1_key))$lengths)
 # select only the irn, table-field, & irnseq fields
 MM2 <- MMcreator[,2:NCOL(MMcreator)]
 MM3 <- spread(MM2, keyseq, CRE_SummaryData, sep="_", convert=T)
-MM4 <- unite(MM3, CRE_Summary, keyseq_1:keyseq_4, sep=" | ", remove = T)
+# Need to manually check next line & fix # of united keyseq columns (if <> 3)
+if (ncol(MM3) > 2) {
+  MM3cols <- colnames(MM3)[2:ncol(MM3)]
+  MM4 <- unite(MM3, "CRE_Summary", MM3cols, sep=" | ", remove = T)
+} else {
+  colnames(MM3)[2] <- "CRE_Summary"
+  MM4 <- MM3
+}
 MM4$CRE_Summary <- gsub(" \\| NA", "", MM4$CRE_Summary)
 
 
@@ -56,13 +65,22 @@ colnames(RIG3)[2] <- "RIGOWN_Summary"
 
 
 # Filter SecDepar to only show Collection Codes
-CollDepar <- c("Zoology", "Geology")
+CollDepar <- c("Zoology", "Geology", "Botany")
 SecDepar <- SecDepar[which(!SecDepar$SecDepartment %in% CollDepar),]
 SecDepar$keyseq <- sequence(rle(as.character(SecDepar$Group1_key))$lengths)
 SecDepar2 <- SecDepar[,2:NCOL(SecDepar)]
 SecDepar3 <- spread(SecDepar2, keyseq, SecDepartment, sep="_", convert=T)
-SecDepar4 <- unite(SecDepar3, SecDepartment, keyseq_1:keyseq_3, sep=" | ", remove = T)
-SecDepar4$SecDepartment <- gsub(" \\| NA", "", SecDepar4$SecDepartment)
+# Need to manually check next line & fix # of united keyseq columns (if <> 3)
+if (ncol(SecDepar3) > 2) {
+  SecCols <- colnames(SecDepar3)[2:ncol(SecDepar3)]
+  SecDepar4 <- unite(SecDepar3, "SecDepartment", SecCols, sep=" | ", remove = T)
+  # SecDepar4 <- unite(SecDepar3, SecDepartment, keyseq_1:keyseq_3, sep=" | ", remove = T)
+} else {
+  colnames(SecDepar3)[2] <- "SecDepartment"
+  SecDepar4 <- SecDepar3
+}
+SecDepar4$SecDepartment <- gsub("\\| NA|(\\s+\\|\\s+\\|)+|^\\s+|\\s+$", "", SecDepar4$SecDepartment)
+SecDepar4$SecDepartment <- gsub("^\\s+|(^\\s+\\|\\s+)|\\s+$", "", SecDepar4$SecDepartment)
 
 
 # Merge all data-frames
@@ -141,8 +159,8 @@ IPTout3 <- IPTout3[,c(2:NCOL(IPTout3),1)]
 ColLabels <- colnames(IPTout3)
 ColLabels <- gsub("^DarGlobalUniqueIdentifier$", "occurrenceID", ColLabels)
 ColLabels <- gsub("^AdmGUIDValue_tab$", "dcterms.identifier", ColLabels)
-ColLabels <- gsub("^MulMimeType$", "dc.type", ColLabels)
-ColLabels <- gsub("^DetResourceType$", "subtypeLiteral", ColLabels)
+ColLabels <- gsub("^MulMimeType$", "subtypeLiteral", ColLabels)
+ColLabels <- gsub("^DetResourceType$", "dc.type", ColLabels)
 ColLabels <- gsub("^MulTitle$", "dcterms.title", ColLabels)
 ColLabels <- gsub("^irn$", "providerManagedID", ColLabels)
 ColLabels <- gsub("^AdmPublishWebNoPassword$", "hasServiceAccessPoint", ColLabels)
@@ -166,5 +184,5 @@ ColLabels2 <- gsub("\\.", ":", ColLabels)
 
 # EXPORT
 IPTout3 <- as.data.frame(rbind(ColLabels2,IPTout3))
-write.table(IPTout3, file="field_media_fishes.csv", row.names = F, sep=",", na="", col.names = F)
-#write.csv(IPTout2, file="IPTout.csv", row.names = F, na="")
+IPTout4 <- unique(IPTout3)
+write.table(IPTout4, file="data02output/field_media_fossinverts.csv", row.names = F, sep=",", na="", col.names = F)
