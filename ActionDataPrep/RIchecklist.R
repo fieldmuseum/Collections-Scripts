@@ -2,7 +2,7 @@
 
 # 1 - Retrieve all Catalogue records where
 #       CatDepartment = Action
-#       CatCatalogSubset = Sightings
+#       CatCatalogSubset = Sighting
 #       CatMammalsProject_tab = Rapid Inventory
 
 # 2 - Report them out with the "RIchecklists" report, which includes:
