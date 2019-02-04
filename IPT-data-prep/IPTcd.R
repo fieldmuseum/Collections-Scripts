@@ -4,7 +4,7 @@ library("readr")
 
 
 # Import CSVs
-csv_path <- "path\to\csvs\"
+csv_path <- "path\\to\\csvs\\"
 
 cat <- read_csv(file = paste0(csv_path, "Catalog.csv"))
 acc <- read_csv(file = paste0(csv_path, "Accessio.csv"))
@@ -17,7 +17,7 @@ acc <- read_csv(file = paste0(csv_path, "Accessio.csv"))
 # Function to check & replace carriage returns
 piper <- function (x) {
   x[1:NCOL(x)] <- sapply(x[1:NCOL(x)],
-                         function (y) gsub("\\n", "|", y))
+                         function (y) gsub("\\n|\\r", "|", y))
   return(x)
 }
 
