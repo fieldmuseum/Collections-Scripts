@@ -1,7 +1,7 @@
 # EMu Data Prep Script -- to prep Audubon Core dataset
 
 # [Stuff to update/fix in script:]
-# [Need to manually check lines 48 & 68 & fix # of united keyseq columns (if <> 3)]
+# [May need to manually check lines 48 & 68 & fix # of united keyseq columns (if <> 3)]
 
 # STEP 1a: Retrieve dataset in EMu/ecatalogue 
 #          (e.g., for Fishes, find all Fishes catalogue records where Publish=OK & HasMM=Y)
@@ -20,6 +20,12 @@
 
 
 # STEP 2: Run script:
+
+dept <- readline("Enter the collection you're prepping (e.g., 'bird_egg' or 'bird'): ")
+
+# IPT resource names are:
+#     bird, bird_egg, bryophyte, fishes, fossinverts, fungi, herp, 
+#     insect, invertebrate, lichen, mammal, paleobot, pteridophyte
 
 # install.packages("tidyr")  # uncomment if not already installed
 library("tidyr")
@@ -65,11 +71,10 @@ colnames(RIG3)[2] <- "RIGOWN_Summary"
 
 
 # Filter SecDepar to only show Collection Codes
-CollDepar <- c("Zoology", "Geology", "Botany")
-SecDepar <- SecDepar[which(!SecDepar$SecDepartment %in% CollDepar),]
-SecDepar$keyseq <- sequence(rle(as.character(SecDepar$Group1_key))$lengths)
-SecDepar2 <- SecDepar[,2:NCOL(SecDepar)]
-SecDepar3 <- spread(SecDepar2, keyseq, SecDepartment, sep="_", convert=T)
+CollDepar <- c("Zoology", "Geology", "Botany", "Anthropology", "Photo Archives", "Action")
+SecDepar2 <- unique(SecDepar[which(SecDepar$SecDepartment %in% CollDepar),-1])
+SecDepar2$keyseq <- sequence(rle(as.character(SecDepar2$Group1_key))$lengths)
+SecDepar3 <- spread(SecDepar2, keyseq, SecDepartment, sep="_", convert=T, fill="")
 # Need to manually check next line & fix # of united keyseq columns (if <> 3)
 if (ncol(SecDepar3) > 2) {
   SecCols <- colnames(SecDepar3)[2:ncol(SecDepar3)]
@@ -79,8 +84,9 @@ if (ncol(SecDepar3) > 2) {
   colnames(SecDepar3)[2] <- "SecDepartment"
   SecDepar4 <- SecDepar3
 }
-SecDepar4$SecDepartment <- gsub("\\| NA|(\\s+\\|\\s+\\|)+|^\\s+|\\s+$", "", SecDepar4$SecDepartment)
-SecDepar4$SecDepartment <- gsub("^\\s+|(^\\s+\\|\\s+)|\\s+$", "", SecDepar4$SecDepartment)
+
+SecDepar4$SecDepartment <- gsub("(\\s+\\|\\s+)+", " | ", SecDepar4$SecDepartment)
+SecDepar4$SecDepartment <- gsub("^\\s+|(^\\s+\\|\\s+)|\\s+\\|\\s+$|\\s+$", "", SecDepar4$SecDepartment)
 
 
 # Merge all data-frames
@@ -185,4 +191,6 @@ ColLabels2 <- gsub("\\.", ":", ColLabels)
 # EXPORT
 IPTout3 <- as.data.frame(rbind(ColLabels2,IPTout3))
 IPTout4 <- unique(IPTout3)
-write.table(IPTout4, file="data02output/field_media_fossinverts.csv", row.names = F, sep=",", na="", col.names = F)
+write.table(IPTout4, 
+            file=paste0("data02output/field_media_", dept,".csv"),
+            row.names = F, sep=",", na="", col.names = F)
