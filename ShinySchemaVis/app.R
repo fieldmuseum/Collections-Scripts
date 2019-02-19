@@ -33,6 +33,8 @@ file <-  Sys.getenv("SCHEMA_FILE")
 schema <- read_delim(paste0(path, file),
                      delim = "\n")
 
+
+# Prep data ####
 colnames(schema) <- c("col1")
 
 schema$col1 <- gsub("'|\\t+|,", "", schema$col1)
@@ -98,14 +100,15 @@ schemaMatrix <- get.adjacency(g, attr = "n", sparse = FALSE)
 #                  "schemaRandom", "schemaDefault")
 
 
-# Define UI for application that draws a histogram
+# Define UI ####
 ui <- fluidPage(
   
   # Application title
   titlePanel("EMu Schema Map"),
   
   fluidRow(
-    # Sidebar with a slider input for number of bins 
+    
+    # ~ Sidebar - inputs ####
     # sidebarLayout(
     #     sidebarPanel(
     
@@ -133,10 +136,9 @@ ui <- fluidPage(
     
     #       ),
     
-    # Show a plot of the generated distribution
-    # mainPanel(
     
-    # tableOutput("contents"),
+    # ~ Main panel - plots ####
+    # mainPanel(
     
     column(width = 10,
            chordNetworkOutput("chordPlot",
@@ -147,10 +149,10 @@ ui <- fluidPage(
 )
 
 
-# Define server logic required to draw a histogram
+# Define server logic ####
 server <- function(input, output) {
   
-  # # Render chord network
+  # Render chord network
   
   # output$contents <- renderTable({
   #     inFile <- input$fileUpdate
