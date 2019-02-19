@@ -1,5 +1,14 @@
 # A shiny web app for visualizing an EMu schema
 #
+# Before running script:
+#   Add a ".Renviron" to the script's home directory.
+#   In the .Renviron file, add these lines:
+#
+#     # Directory locations
+#     SCHEMA_DIR = "/server/path/to/schema_file_directory/"
+#     SCHEMA_DIR_LOC = "local/path/to/schema_file_directory/"
+#     SCHEMA_FILE = "schema_file.txt"
+#
 
 library(shiny)
 
@@ -14,8 +23,8 @@ library(tidyr)
 library(zoo)
 
 
-# # Import data ####
-# # For simplicity, treat lines in schema as table/field list
+# Import data ####
+# For simplicity, treat lines in schema as table/field list
 
 # path <- Sys.getenv("SCHEMA_DIR_LOC")
 path <- Sys.getenv("SCHEMA_DIR")
