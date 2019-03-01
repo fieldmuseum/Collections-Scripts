@@ -1,0 +1,55 @@
+---
+title: "Multimedia GUID redirector"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### A companion site to the [Occurrence GUID redirector](https://db.fieldmuseum.org)
+
+Please consider the [Field Museum data norms](https://www.fieldmuseum.org/field-museum-natural-history-conditions-and-suggested-norms-use-collections-data-and-images) when accessing and reusing Media served here.
+<br>
+
+#### Links to Field Museum data
+<li>[Zoology Collections](https://collections-zoology.fieldmuseum.org/)</li>
+<li>[Botany Collections](https://collections-botany.fieldmuseum.org/)</li>
+<li>[Anthropology Collections](https://collections-anthropology.fieldmuseum.org/)</li>
+<li>[IPT](http://fmipt.fieldmuseum.org:8080/)</li>
+<li>[Multimedia](https://mm.fieldmuseum.org/)</li>
+<li>[Philippines](https://philippines.fieldmuseum.org/)</li>
+<li>[Plant ID Tools](https://plantidtools.fieldmuseum.org/)</li>
+<li>[EMu Data](https://emudata.fieldmuseum.org/)</li>
+<br>
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+library("readr")
+library("knitr")
+
+emu_mm <- read_csv("output/mmStats.csv")
+
+
+```
+
+```{r echo=FALSE, results = 'asis', tidy = TRUE} 
+
+# Generate tables
+
+cat("  \n### Monthly count of Multimedia records \n")
+print(knitr::kable(emu_mm))
+cat("  \n")
+
+```
+
+```{r echo=FALSE, results = 'asis', tidy = TRUE, message = FALSE} 
+
+# draw the barplot
+  barplot(height = emu_mm$Count, names.arg = emu_mm$Action,
+          col = c('#b8384e','#c5de92', '#92c5de'),
+          border = 'white',
+          ylim = c(0, round(ceiling(max(emu_mm$Count)), -2)),
+          ylab = "Number of Multimedia Files")
+
+```
