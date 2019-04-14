@@ -12,9 +12,9 @@ shinyUI(fluidPage(
                   list(
                     `What` = c("ss_DetResourceType", "ss_MulMimeType","ss_MulMimeFormat","sm_SecDepartment"),
                     `When` = c("ss_AdmDateInserted", "ss_AdmDateModified"),
-                  selected = "ss_DetResourceType")),
+                  selected = "ss_AdmDateInserted")),
 
-      textInput("text1", "Keywords", value="Ricciaceae"),
+      textInput("text1", "Keywords", value="red"),
       
       submitButton("Submit")
     ),
