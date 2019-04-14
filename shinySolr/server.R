@@ -1,5 +1,3 @@
-# Shiny app that shows counts for EMu Taxonomy records [Botany] in the FMNH Solr core
-
 library("shiny")
 library("solrium")
 library("ggplot2")
