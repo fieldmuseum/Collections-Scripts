@@ -28,13 +28,13 @@ shinyServer( function(input, output, session) {
 
   facetFieldsAll <- reactive({
     facetFieldsM() %>%
-      mutate(term2 = abs(as.integer(term))) %>%
+      mutate(term2 = as.Date(term, "%d %b %Y")) %>%  # abs(as.integer(term))) %>%  # 
       arrange(core, term2)
     
   })
   
   output$plot1 <- renderPlot({
-    if (grepl("year|month|day", input$pickfacet)) {
+    if (grepl("Date", input$pickfacet)) {
       ggplot(facetFieldsAll(), aes(term2)) +
         theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.4)) +
         geom_bar(aes(weight=value, fill=core), na.rm=TRUE)
@@ -50,7 +50,7 @@ shinyServer( function(input, output, session) {
   output$plot2 <- renderPlot({
     if (grepl("Date", input$pickfacet)) {
       gvisMotionChart(facetFieldsAll(),
-                      colorvar="core",idvar="term",timevar=as.Date("value"),
+                      colorvar="core",timevar="term2",idvar="value",
                       options=list(width=600,height=400)
       )
       

@@ -8,11 +8,11 @@ shinyUI(fluidPage(
       
       
       selectInput("pickfacet", "Fields/Facets:",
-                  multiple = FALSE, # size = 3,
+                  multiple = FALSE, 
                   list(
-                    `What` = c("ss_DetResourceType", "ss_MulMimeType","ss_MulMimeFormat","sm_SecDepartment"),
                     `When` = c("ss_AdmDateInserted", "ss_AdmDateModified"),
-                  selected = "ss_AdmDateInserted")),
+                    `What` = c("ss_DetResourceType", "ss_MulMimeType","ss_MulMimeFormat","sm_SecDepartment"),
+                    selected = "ss_AdmDateInserted")),
 
       textInput("text1", "Keywords", value="red"),
       
