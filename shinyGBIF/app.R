@@ -10,13 +10,14 @@ library("shiny")
 library("rgbif")
 library("ggplot2")
 library("dplyr")
+library("scales")
 
 colcodes <- c('Birds', 'Fishes', 'Insects', 'Invertebrate Zoology', 'Mammals',
               'Botany', 'Fossil Invertebrates', 'Paleobotany')
 
-FMNHfac4 <- occ_search(collectionCode = colcodes[1],
-                       facetMultiselect = TRUE, 
-                       facet = c('year','institutionCode'))
+gbifOccurrences <- occ_search(collectionCode = colcodes[1],
+                              facetMultiselect = TRUE, 
+                              facet = c('year','institutionCode'))
 
 # initialize ui (webpage)
 ui <- fluidPage( 
@@ -36,10 +37,6 @@ ui <- fluidPage(
       # sliderInput("yearIn1", "Year", min = 1600, max = 2018,
       #             value = c(35, 40), pre ="$"),
       # 
-      # radioButtons("typeIn1", "Product type",
-      #              choices = unique(bcl$Type),
-      #              selected = unique(bcl$Type)[1]),
-      # 
       # selectInput("countryIn1", "Country",
       #             choices = levels(as.factor(bcl$Country)))
       # 
@@ -55,13 +52,26 @@ ui <- fluidPage(
       textOutput("outTitle"),
       plotOutput("gbifChart"),
       br(), br(),
-      tableOutput("gbifTable")
+      fluidRow(
+        column(width = 5,
+               h3("Occurrences"),
+               plotOutput("occTimeline")),
+        column(width = 5,
+               h3("Datasets"),
+               plotOutput("datasetTimeline"))
+      ),
+      fluidRow(
+        column(width = 5,
+               h3("Occurrences"),
+               tableOutput("gbifTable")),
+        column(width = 5,
+               h3("Datasets"),
+               tableOutput("setTable"))
+      )
       
     )
-    
   )
 )
-
 
 # initialize server (data in/out)
 server <- function(input, output, session) {
@@ -75,7 +85,6 @@ server <- function(input, output, session) {
   #            Country == input$countryIn1)
   #   ggplot(filtered, aes(Alcohol_Content)) + geom_histogram()
   # })
-  # 
   
   observe({
     
@@ -83,22 +92,63 @@ server <- function(input, output, session) {
     input$updateButton
     # updateSelectInput(session, "colcodIn", value = input$colcodIn)
     
-    FMNHfac4 <- 
-      occ_search(collectionCode = input$colcodIn,
+    gbifOccurrences <- 
+      occ_search(collectionCode = input$colcodIn,  # "Arthropods"
                  facetMultiselect = TRUE,
                  facet = c('year','institutionCode'))
+
     
+    # ADD THIS TO OUTPUT VISUALS
+    gbifDatasets <- 
+      dataset_search(query = "Birds", # input$colcodIn,
+                     facet = "decade")
+    
+    # # # # # #
+        
     output$gbifChart <- renderPlot({
-      ggplot(FMNHfac4$facet$institutionCode, 
-             aes(FMNHfac4$facet$institutionCode$name, 
-                 FMNHfac4$facet$institutionCode$count)) +
+      ggplot(gbifOccurrences$facet$institutionCode, 
+             aes(gbifOccurrences$facet$institutionCode$name, 
+                 as.integer(gbifOccurrences$facet$institutionCode$count))) +
         geom_bar(stat="identity") +
-        labs(title = paste("Counts of", input$colcodIn, "by institution"))
+        labs(title = paste("Counts of", input$colcodIn, "by institution")) +
+        xlab("Institution Codes") + 
+        ylab("Count of Occurrences") +
+        scale_y_continuous(labels = comma)
+      
+    })
+
+    output$occTimeline <- renderPlot({
+      ggplot(gbifOccurrences$facet$year, 
+             aes(gbifOccurrences$facet$year$name[order(as.integer(gbifOccurrences$facets$year$name))], 
+                 as.integer(gbifOccurrences$facet$year$count[order(as.integer(gbifOccurrences$facets$year$name))]))) +
+                 # group = gbifOccurrences$facet$institutionCode)) +
+        geom_point(stat = "identity") +
+        labs(title = paste("Counts of", input$colcodIn, "by year")) +
+        xlab("Publication Year") + 
+        ylab("Count of Occurrences") +
+        scale_y_continuous(labels = comma)
       
     })
     
+    output$datasetTimeline <- renderPlot({
+      ggplot(gbifDatasets$facet$decade, 
+             aes(gbifDatasets$facets$decade$name[order(as.integer(gbifDatasets$facets$decade$name))], 
+                 as.integer(gbifDatasets$facets$decade$count[order(as.integer(gbifDatasets$facets$decade$name))]))) +
+        geom_point(stat = "identity") +
+        labs(title = paste("Counts of", input$colcodIn, "Datasets by Decade")) +
+        xlab("Dataset") + 
+        ylab("Count of Datasets") +
+        scale_y_continuous(labels = comma)
+      
+    })
+        
     output$gbifTable <- renderTable({
-      FMNHfac4$facet[1]
+      # gbifOccurrences$facets[1]
+      gbifOccurrences$facets$year[order(as.integer(gbifOccurrences$facets$year$name)),]
+    })
+    
+    output$setTable <- renderTable({
+      gbifDatasets$facets$decade[order(as.integer(gbifDatasets$facets$decade$name)),]
     })
     
     # # should also update on-screen somewhere to show currently-selected colCode
