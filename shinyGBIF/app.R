@@ -1,6 +1,6 @@
-# # THIS
+# Summaries of GBIF occurrences and datasets
 
-# Trying out shiny
+# For shiny setup, llowing:
 # http://deanattali.com/blog/building-shiny-apps-tutorial/
 
 # install.packages("shiny")
@@ -34,24 +34,15 @@ ui <- fluidPage(
       
       actionButton("updateButton", "Update")
       
-      # sliderInput("yearIn1", "Year", min = 1600, max = 2018,
-      #             value = c(35, 40), pre ="$"),
-      # 
-      # selectInput("countryIn1", "Country",
-      #             choices = levels(as.factor(bcl$Country)))
-      # 
-      # # numericInput("numIn1", "How many?",
-      # #              value = 23.0, step = 3.0,
-      # #              min = 2, max = 44,
-      # #              width="25%")
-      
     ),
     
     mainPanel(
       
       textOutput("outTitle"),
       plotOutput("gbifChart"),
+      
       br(), br(),
+      
       fluidRow(
         column(width = 5,
                h3("Occurrences"),
@@ -60,6 +51,7 @@ ui <- fluidPage(
                h3("Datasets"),
                plotOutput("datasetTimeline"))
       ),
+      
       fluidRow(
         column(width = 5,
                h3("Occurrences"),
@@ -68,23 +60,12 @@ ui <- fluidPage(
                h3("Datasets"),
                tableOutput("setTable"))
       )
-      
     )
   )
 )
 
 # initialize server (data in/out)
 server <- function(input, output, session) {
-  
-  # output$spiffygraph <- renderPlot({
-  #   filtered <-
-  #     bcl %>%
-  #     filter(Price >= input$priceIn1[1],
-  #            Price <= input$priceIn1[2],
-  #            Type == input$typeIn1,
-  #            Country == input$countryIn1)
-  #   ggplot(filtered, aes(Alcohol_Content)) + geom_histogram()
-  # })
   
   observe({
     
@@ -97,13 +78,12 @@ server <- function(input, output, session) {
                  facetMultiselect = TRUE,
                  facet = c('year','institutionCode'))
 
-    
-    # ADD THIS TO OUTPUT VISUALS
     gbifDatasets <- 
-      dataset_search(query = "Birds", # input$colcodIn,
+      dataset_search(query = input$colcodIn,
                      facet = "decade")
     
-    # # # # # #
+    
+    # generate charts & tables
         
     output$gbifChart <- renderPlot({
       ggplot(gbifOccurrences$facet$institutionCode, 
@@ -121,7 +101,6 @@ server <- function(input, output, session) {
       ggplot(gbifOccurrences$facet$year, 
              aes(gbifOccurrences$facet$year$name[order(as.integer(gbifOccurrences$facets$year$name))], 
                  as.integer(gbifOccurrences$facet$year$count[order(as.integer(gbifOccurrences$facets$year$name))]))) +
-                 # group = gbifOccurrences$facet$institutionCode)) +
         geom_point(stat = "identity") +
         labs(title = paste("Counts of", input$colcodIn, "by year")) +
         xlab("Publication Year") + 
@@ -143,7 +122,6 @@ server <- function(input, output, session) {
     })
         
     output$gbifTable <- renderTable({
-      # gbifOccurrences$facets[1]
       gbifOccurrences$facets$year[order(as.integer(gbifOccurrences$facets$year$name)),]
     })
     
@@ -151,53 +129,9 @@ server <- function(input, output, session) {
       gbifDatasets$facets$decade[order(as.integer(gbifDatasets$facets$decade$name)),]
     })
     
-    # # should also update on-screen somewhere to show currently-selected colCode
-    # output$outTitle <- paste(input$colcodIn)  # doesn't work!
-    
   })
-  
-  
-  # output$results <- renderTable(({
-  #   bcl[which(bcl$Price >= input$priceIn1[1]
-  #             & bcl$Price <= input$priceIn1[2]),
-  #       c(1,4:6)]
-  # }))
-  
-  
-  # # observers for interactive/input values from user:
-  # observeEvent(input$mytext, {
-  #   
-  #   input$priceIn1
-  #   txt <- paste(input$mytext, sample(1:10000, 1))
-  #   updateTextInput(session, "myresults", value=txt)
-  #   
-  # })
-  # 
-  
-  # # need reactive() or input$[id name] for interactivity/user-input after page loads
-  # myresults <- reactive({
-  #   paste(input$mytext, input$priceIn1)
-  # })
-  # 
-  # myresults_lim <- eventReactive(input$mytext, {
-  #   paste(input$mytext, input$priceIn1)
-  # })
-  # 
-  # # & with above, use observeEvent()...
-  
-  # # ...&/or use observe() & isolate()  instead of  reactive()/input$/observeEvent() 
-  # observe({
-  #   updateTextInput(session, inputId = "myresults", value = input$mytext)
-  # })
-  # 
-  # observe({
-  #   input$updateButton
-  #   updateTextInput(session, "myresults2", value = isolate(input$mytext))
-  # })
-  #
   
 }
 
 
-# to run the app, this needs to be the last line in the file:
 shinyApp(ui = ui, server = server)
