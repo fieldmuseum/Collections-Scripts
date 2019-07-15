@@ -5,9 +5,6 @@
 # install.packages("tidyr")  # uncomment if not already installed
 library("tidyr")
 
-# point to your csv's directory
-setwd("C:\\Users\\kwebbink\\Desktop\\InsectsCatProj\\Projs")
-
 
 # point to your csv file
 projtab <- read.csv(file="insects35.csv")
