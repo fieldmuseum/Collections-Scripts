@@ -21,4 +21,3 @@ write.csv(emu2,
                         # format(max(timeEMu$ctime), "%Y%m%d_%a"),
                         ".csv"),
           row.names = F)  
-

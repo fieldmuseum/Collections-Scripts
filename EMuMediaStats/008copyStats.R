@@ -16,7 +16,7 @@ locEMu <- Sys.getenv("EMU_LOC")
 
 # Create local directories for audit logs
 if (!dir.exists(paste0(origdir, locEMu))) {
-  dir.create(paste(locEMu))
+  dir.create(paste0(origdir, locEMu))
 }
 
 

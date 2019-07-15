@@ -11,7 +11,7 @@ if(!file.exists(proj_renviron)) { # check to see if the file already exists
                "SERVER_IP = 'server-ip-address'",
                "SERVER_ID = 'id'",
                "SERVER_PW = 'pw'",
-               "EMU_DIR = 'path/to/emu/stats/directory/'",
+               "EMU_DIR = 'path/to/emu/audit/directory/'",
                "OUT_DIR = 'output/'",
                "EMU_LOC = '/emuloc/'",
                "SENDER = 'youremail@address.com'",

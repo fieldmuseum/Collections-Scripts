@@ -1,5 +1,5 @@
 # Run this script to get emultimedia stats for mm.fieldmuseum.org
-# 2019-Feb-25
+# 2019-Jul-15
 # FMNH-IT
 
 # Use 'Rscript mmStats.R' to run this from a bash shell.
@@ -23,12 +23,12 @@ source("010openLogs.R", verbose = T)
 
 source("020tallyStats.R", verbose = T) # requires tidyverse
 
-source("025notify.R", verbose = T)  # requires mailR
+# source("025notify.R", verbose = T)  # requires mailR
 
 source("030makeRmd.R", verbose = T)
 
 # # Don't do this:
-# source("035chartStats.Rmd", verbose = T)  # requires knitr, rmarkdown
+# source("030chartStats.Rmd", verbose = T)  # requires knitr, rmarkdown
 
 source("040cleanup.R", verbose = T)
 

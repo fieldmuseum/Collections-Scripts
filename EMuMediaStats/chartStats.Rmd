@@ -29,6 +29,7 @@ library("readr")
 library("knitr")
 
 emu_mm <- read_csv("output/mmStats.csv")
+emu_mm <- emu_mm[order(emu_mm$Action),]
 
 
 ```

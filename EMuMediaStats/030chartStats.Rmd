@@ -1,0 +1,59 @@
+---
+title: "Multimedia GUID redirector"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Monthly Multimedia Stats
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+library("readr")
+library("knitr")
+
+emu_mm <- read_csv("output/mmStats.csv")
+emu_mm <- emu_mm[order(emu_mm$Action),]
+
+
+```
+
+```{r echo=FALSE, results = 'asis', tidy = TRUE} 
+
+# Generate tables
+
+cat("  \n### Monthly count of Multimedia records \n")
+print(knitr::kable(emu_mm))
+cat("  \n")
+
+```
+
+```{r echo=FALSE} 
+
+# draw the barplot
+print(
+  barplot(height = emu_mm$Count, names.arg = emu_mm$Action,
+          col = c('#b8384e','#c5de92', '#92c5de'),
+          border = 'white',
+          ylim = c(0, round(ceiling(max(emu_mm$Count)), -2)),
+          ylab = "Number of Multimedia Files")
+)
+
+ # print(
+ #    ggplot(data = emu_mm,
+ #           aes(x = Resp,  
+ #               fill = Resp)) +
+ #      geom_bar(position = "dodge") +
+ #      facet_grid(Qresp[,2] ~ .) +
+ #      labs(title = colnames(responses2)[i+2],
+ #           subtitle = str_wrap(questionKey2[3,c(colnames(responses2)[i+2])]),
+ #           x = "", y = "count") +
+ #      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+ #            plot.title=element_text(size=20),
+ #            legend.position="none")
+ #    )
+
+
+```

@@ -6,7 +6,9 @@
 # if (file.exists(paste0("auditErrorlog_", filerDate, ".txt"))) {
 
 sender <- Sys.getenv("SENDER")
-recipients <- c(Sys.getenv("RECIP1"), Sys.getenv("RECIP2")) # Sys.getenv("RECIPTEST")
+recipients <- c(Sys.getenv("RECIP1"),
+                Sys.getenv("RECIP2"),
+                Sys.getenv("RECIP3")) # Sys.getenv("RECIPTEST")
 
   send.mail(from = sender,
             to = recipients,
@@ -19,6 +21,6 @@ recipients <- c(Sys.getenv("RECIP1"), Sys.getenv("RECIP2")) # Sys.getenv("RECIPT
             authenticate = FALSE,
             send = TRUE,
             attach.files = c(paste0("./", Sys.getenv("OUT_DIR"),"mmStats.csv")),
-            file.descriptions = c("Description for MM stats"), # optional parameter
+            file.descriptions = c("MM stats"), # optional parameter
             debug = TRUE)
   
