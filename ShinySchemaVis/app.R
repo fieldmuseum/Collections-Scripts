@@ -26,8 +26,8 @@ library(zoo)
 # Import data ####
 # For simplicity, treat lines in schema as table/field list
 
-# path <- Sys.getenv("SCHEMA_DIR_LOC")
 path <- Sys.getenv("SCHEMA_DIR")
+# path <- Sys.getenv("SCHEMA_DIR_LOC")  # for local testing
 file <-  Sys.getenv("SCHEMA_FILE") 
 
 schema <- read_delim(paste0(path, file),
