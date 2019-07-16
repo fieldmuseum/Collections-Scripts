@@ -3,6 +3,8 @@ library("solrium")
 library("ggplot2")
 library("dplyr")
 library("googleVis")
+library("scales")
+library("tidyr")
 
 cliMUL <- SolrClient$new(host = 'ross.fieldmuseum.org',
                          path = 'emu0/core_emultimedia/select',
@@ -14,35 +16,74 @@ shinyServer( function(input, output, session) {
   
   # To bring back specific specimen/data/media
   keySearch <- reactive({
-    ifelse(nchar(input$text1)>0, 
-           paste0("content:",input$text1), 
+    ifelse(nchar(input$text1)>0,
+           paste0(input$text1), 
+           # paste0("content:",input$text1), 
            '*:*')
   })
   
+  # test3 <- solr_facet(cliMUL, params = list(q= "red",  # keySearch(),
+  #                                         facet.field =  "ss_MulMimeType",
+  #                                         facet.limit = -1,
+  #                                         facet.mincount = 10))[[2]][[1]]
+  
   facetFieldsM <- reactive({
-    cliMUL$facet(params = list(q=keySearch(),
-                               facet.field = input$pickfacet))[[2]][[1]] %>%
-      mutate(value = abs(as.integer(value))) %>%
-      mutate("core" = "Multimedia")
+    
+    solr_facet(cliMUL, params = list(q= keySearch(),  # "red"
+                                     facet.field = input$pickfacet,  # "ss_AdmDateModified",
+                                     facet.limit = -1,
+                                     facet.mincount = 10))[[2]][[1]] %>%
+
+    # cliMUL$facet(params = list(q= keySearch(),
+    #                            facet.field = input$pickfacet))[[2]][[1]] %>%  # "ss_AdmDateModified"))[[2]][[1]] %>%  #
+    mutate(value = abs(as.integer(value))) %>%
+    mutate("core" = "Multimedia")
+
   })
 
   facetFieldsAll <- reactive({
     facetFieldsM() %>%
+    # facetFieldsM %>%
       mutate(term2 = as.Date(term, "%d %b %Y")) %>%  # abs(as.integer(term))) %>%  # 
+      separate(term2, c("Year", "Month", "Day"), sep = "-", remove = FALSE) %>%  # abs(as.integer(term))) %>%  # 
+      unite("YearMonth", 5:6, sep = "-") %>%
       arrange(core, term2)
     
   })
+
+# facetFieldsAll <- reactive({
+#   facetFieldsAll() %>%
+#   # facetFieldsAll %>%
+#   separate(term2, c("Year", "Month", "Day"), sep = "-", remove = FALSE) %>%  # abs(as.integer(term))) %>%  # 
+#   unite("YearMonth", 5:6, sep = "-") %>%
+#   arrange(term2)
+# 
+# })
   
-  output$plot1 <- renderPlot({
-    if (grepl("Date", input$pickfacet)) {
-      ggplot(facetFieldsAll(), aes(term2)) +
-        theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.4)) +
-        geom_bar(aes(weight=value, fill=core), na.rm=TRUE)
-    } else {
-      ggplot(facetFieldsAll(), aes(term)) +
-        theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.4)) +
-        geom_bar(aes(weight=value, fill=core), na.rm=TRUE)
-    }
+output$plot1 <- renderPlot({
+  if (grepl("Date", input$pickfacet)) {
+    ggplot(facetFieldsAll(), aes(term2)) +
+      theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.4)) +
+      geom_histogram(stat = "identity", aes(y=value, fill=core), na.rm=TRUE) +
+      scale_y_continuous(labels = comma)
+  } else {
+    ggplot(facetFieldsAll(), aes(term)) +
+      theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.4)) +
+      geom_bar(stat = "identity", aes(y=value, fill=core), na.rm=TRUE) +
+      scale_y_continuous(labels = comma)
+  }
+  
+    # if (grepl("Date", input$pickfacet)) {
+    #   ggplot(facetFieldsAll(), aes(term2)) +
+    #     theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.4)) +
+    #     geom_bar(aes(weight=value, fill=core), na.rm=TRUE) +
+    #     scale_y_continuous(labels = comma)
+    # } else {
+    #   ggplot(facetFieldsAll(), aes(term)) +
+    #     theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.4)) +
+    #     geom_bar(aes(weight=value, fill=core), na.rm=TRUE) +
+    #     scale_y_continuous(labels = comma)
+    # }
     
   })
   
