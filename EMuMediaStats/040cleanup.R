@@ -1,3 +1,3 @@
 # cleanup files 
 
-unlink(c("estatistics"), recursive = T)
+unlink(c("estatistics", "emultimedia"), recursive = T)

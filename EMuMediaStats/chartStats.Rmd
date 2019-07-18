@@ -31,6 +31,10 @@ library("knitr")
 emu_mm <- read_csv("output/mmStats.csv")
 emu_mm <- emu_mm[order(emu_mm$Action),]
 
+emu_cat <- read_csv("output/catStats.csv")
+emu_cat <- emu_cat[order(emu_cat$Action),]
+
+emu_mm_files <- read_csv("output/mmFileStats.csv")
 
 ```
 
@@ -52,5 +56,19 @@ cat("  \n")
           border = 'white',
           ylim = c(0, round(ceiling(max(emu_mm$Count)), -2)),
           ylab = "Number of Multimedia Files")
+
+```
+
+```{r echo=FALSE, results = 'asis', tidy = TRUE} 
+
+# Generate Cat & MM-file tables
+
+cat("  \n### Monthly sum of new Multimedia filesizes (GB) \n")
+print(knitr::kable(emu_mm_files))
+cat("  \n")
+
+cat("  \n### Monthly count of Catalog records \n")
+print(knitr::kable(emu_cat))
+cat("  \n")
 
 ```

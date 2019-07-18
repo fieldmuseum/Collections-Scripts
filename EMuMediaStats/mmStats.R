@@ -23,7 +23,7 @@ source("010openLogs.R", verbose = T)
 
 source("020tallyStats.R", verbose = T) # requires tidyverse
 
-# source("025notify.R", verbose = T)  # requires mailR
+source("025notify.R", verbose = T)  # requires mailR
 
 source("030makeRmd.R", verbose = T)
 

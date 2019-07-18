@@ -7,8 +7,8 @@
 
 sender <- Sys.getenv("SENDER")
 recipients <- c(Sys.getenv("RECIP1"),
-                Sys.getenv("RECIP2"),
-                Sys.getenv("RECIP3")) # Sys.getenv("RECIPTEST")
+                Sys.getenv("RECIP2"))
+                # Sys.getenv("RECIP3")) # Sys.getenv("RECIPTEST")
 
   send.mail(from = sender,
             to = recipients,
@@ -20,7 +20,9 @@ recipients <- c(Sys.getenv("RECIP1"),
             # passwd = Sys.getenv("SENDPW"), ssl = TRUE),
             authenticate = FALSE,
             send = TRUE,
-            attach.files = c(paste0("./", Sys.getenv("OUT_DIR"),"mmStats.csv")),
-            file.descriptions = c("MM stats"), # optional parameter
+            attach.files = c(paste0("./", Sys.getenv("OUT_DIR"),"mmStats.csv"),
+                             paste0("./", Sys.getenv("OUT_DIR"),"mmFileStats.csv"),
+                             paste0("./", Sys.getenv("OUT_DIR"),"catStats.csv")),
+            file.descriptions = c("MM stats", "MM file sizes", "Catalog Stats"), # optional parameter
             debug = TRUE)
   
