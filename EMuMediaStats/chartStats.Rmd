@@ -16,7 +16,7 @@ Please consider the [Field Museum data norms](https://www.fieldmuseum.org/field-
 <li>[Zoology Collections](https://collections-zoology.fieldmuseum.org/)</li>
 <li>[Botany Collections](https://collections-botany.fieldmuseum.org/)</li>
 <li>[Anthropology Collections](https://collections-anthropology.fieldmuseum.org/)</li>
-<li>[IPT](http://fmipt.fieldmuseum.org:8080/)</li>
+<li>[IPT](https://fmipt.fieldmuseum.org/)</li>
 <li>[Multimedia](https://mm.fieldmuseum.org/)</li>
 <li>[Philippines](https://philippines.fieldmuseum.org/)</li>
 <li>[Plant ID Tools](https://plantidtools.fieldmuseum.org/)</li>
