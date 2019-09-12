@@ -9,13 +9,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### A companion site to the [Occurrence GUID redirector](https://db.fieldmuseum.org)
 
-[About](/about)
-[Search](/search)
+[About](/about) | [Search](/search)
 
 Please consider the [Field Museum data norms](https://www.fieldmuseum.org/field-museum-natural-history-conditions-and-suggested-norms-use-collections-data-and-images) when accessing and reusing Media served here.
 <br>
 
 #### Links to Field Museum data
+<ul>
 <li>[Zoology Collections](https://collections-zoology.fieldmuseum.org/)</li>
 <li>[Botany Collections](https://collections-botany.fieldmuseum.org/)</li>
 <li>[Anthropology Collections](https://collections-anthropology.fieldmuseum.org/)</li>
@@ -24,6 +24,7 @@ Please consider the [Field Museum data norms](https://www.fieldmuseum.org/field-
 <li>[Philippines](https://philippines.fieldmuseum.org/)</li>
 <li>[Plant ID Tools](https://plantidtools.fieldmuseum.org/)</li>
 <li>[EMu Data](https://emudata.fieldmuseum.org/)</li>
+</ul>
 <br>
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
