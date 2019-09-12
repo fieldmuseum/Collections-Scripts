@@ -1,5 +1,5 @@
 ---
-title: "Multimedia GUID redirector"
+title: "Public Multimedia | The Field Museum"
 output: html_document
 ---
   
@@ -8,6 +8,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### A companion site to the [Occurrence GUID redirector](https://db.fieldmuseum.org)
+
+[About](/about)
+[Search](/search)
 
 Please consider the [Field Museum data norms](https://www.fieldmuseum.org/field-museum-natural-history-conditions-and-suggested-norms-use-collections-data-and-images) when accessing and reusing Media served here.
 <br>
