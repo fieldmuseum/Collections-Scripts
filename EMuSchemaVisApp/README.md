@@ -1,6 +1,6 @@
 # EMu Schema Vis app
 
-An R/Shiny app to look at EMu schemas across institutions
+An R/Shiny app to look at EMu schemas across institutions, using the [visdat](https://doi.org/10.21105/joss.00355) package
 - Which modules are used by which institutions?
 - Which fields are used by which institutions?
 - which modules are attached to/from each other
