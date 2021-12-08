@@ -1,4 +1,10 @@
 .Rproj.user
+*.Rproj
 .Rhistory
 .RData
 .Ruserdata
+.Renviron
+
+/data01input/*
+/RefsInUse/*
+/*/rsconnect/*
