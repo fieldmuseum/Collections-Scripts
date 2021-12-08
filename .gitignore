@@ -5,6 +5,4 @@
 .Ruserdata
 .Renviron
 
-/data01input/*
-/RefsInUse/*
-/*/rsconnect/*
+*/*/rsconnect/*/*
