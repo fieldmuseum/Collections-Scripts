@@ -1,0 +1,5 @@
+Notes_key,ecatalogue_key,irn,CatAnthroCatalogNumber,CatObjectId,NotKind,NotFisNotes,NotDate,attr_1_irn,attr_1_summary,attr_2_irn,attr_2_summary
+1,1,1234,987,987.1,Full description,"People: name (of area)Description: item description.Notes: col. by person, Mon YYYY.  ""[illegible, 3 characters]""No imageCatalog card name MM-D-YYYY5Additional information from cited index card:Description: item description from people, place. Col. in YYYY.Measurements: not givenPhoto on card, neg. no. 1234 and 6789 name M-D-YYYY",,12345,Person 1,"",""
+5,2,2345,876,876.2,Full description,count of items. initials MM/YYYY,,345678,Person 3: Institutional Affiliation 2,45678,Person 4
+9,3,3456,765,765.3,Full description,count of items. initials MM/YYYY,,"","","",""
+13,4,4567,654,654.nosub[1],Full description,"count inventoried, date",,"","","",""
