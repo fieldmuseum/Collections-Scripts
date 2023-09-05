@@ -4,7 +4,7 @@
 library(readr)
 library(tidyr)
 
-# Check for input directory
+# Check for input directory ####
 if (!dir.exists("GeologyDataPrep/raw_data/")) {
   
   dir.create("GeologyDataPrep/raw_data")
@@ -13,7 +13,7 @@ if (!dir.exists("GeologyDataPrep/raw_data/")) {
   
 }
 
-# Import accession data
+# Import loan data ####
   # NOTE:
   # If the read_tsv functions below throw errors,
   # check that the script's filenames & extensions are correct.
@@ -24,49 +24,55 @@ raw_dh_invoices <- read_tsv("GeologyDataPrep/raw_data/DH - Invoices",
 invoice_list_full <- read_tsv("GeologyDataPrep/raw_data/DH_Invoice List_Full",
                               locale = locale(encoding = "latin1"))
 
-# Check imported data -- e.g., run:  problems(raw_dh_invoices)
-# - raw_dh_invoices
-#     - We expect problems in this dataframe since 
-#       rows for specimens/objects only have 3 columns
-#       vs R's expected 43 column
+# Check imported data ####
+# -- e.g., run:  problems(raw_dh_invoices)
+#   - raw_dh_invoices
+#       - We expect problems in this dataframe since 
+#         rows for specimens/objects only have 3 columns
+#         vs R's expected 43 column
 
 
-# Check numbers of accessions
+# Check numbers of loan invoices 
 count_of_objs <- dplyr::count(raw_dh_invoices, `Our Invoice #`)
 
 
-# See which invoices are not in raw_dh_invoices:
+# Prep invoices NOT in raw_dh_invoices ####
+# Are these not in "DH - Invoices" because they don't have associated objects?
 not_in_raw_dh <- 
   invoice_list_full[!invoice_list_full$`Our Invoice #` %in% raw_dh_invoices$`Our Invoice #`,]
 
 
-# Prep Invoices that DO have objects associated:
-# 1. Filling in Invoice #s  ####
+# Prep invoices with associated objects ####
+# Filling in Invoice #s
 raw_dh_invoices <- fill(raw_dh_invoices, `Our Invoice #`)
 
-# Split accession-invoices from accession-obj-lists
-acc_invoices <- raw_dh_invoices[tolower(raw_dh_invoices$CLOSED) %in% c("open","closed"),]
+# Split invoices from obj-lists
+loan_invoices <- raw_dh_invoices[tolower(raw_dh_invoices$CLOSED) %in% c("open","closed"),]
 
+loan_objects <- raw_dh_invoices[!tolower(raw_dh_invoices$CLOSED) %in% c("open","closed"),]
 
-acc_objects <- raw_dh_invoices[!tolower(raw_dh_invoices$CLOSED) %in% c("open","closed"),]
 
 # Fix column headers for object list
-colnames(acc_objects) <- c(acc_objects[1,1:3], "Our Invoice #")
-acc_objects_prepped <- acc_objects[2:NROW(acc_objects),1:4]
-acc_objects_prepped <- acc_objects_prepped[,c("Our Invoice #", 
+colnames(loan_objects) <- c(loan_objects[1,1:3], "Our Invoice #")
+loan_objects_prepped <- loan_objects[2:NROW(loan_objects),1:4]
+loan_objects_prepped <- loan_objects_prepped[,c("Our Invoice #", 
                                               "Specimen #","Taxon","morphology")]
 
 # Fancy steps - if need to spread the table
-acc_objects_prepped$seq <- sequence(rle(acc_objects_prepped$`Our Invoice #`)$length)
+loan_objects_prepped$seq <- sequence(rle(loan_objects_prepped$`Our Invoice #`)$length)
 
-acc_objects_wide <- pivot_wider(acc_objects_prepped,
+loan_objects_wide <- pivot_wider(loan_objects_prepped,
                                 id_cols = "Our Invoice #",
                                 names_from = "seq",
                                 values_from = c("Specimen #", "Taxon", "morphology"),
                                 names_sep = "_")
 
 
-# Prep output df -- if output columns are roughly known/knowable
+# TO DO - Prep EMu column names ####
+# Once columns are mapped,
+
+
+# Output prepped CSVs ####
 
 # Check for output directory
 if (!dir.exists("GeologyDataPrep/real_output/")) {
@@ -77,14 +83,14 @@ if (!dir.exists("GeologyDataPrep/real_output/")) {
 }
 
 write_csv(not_in_raw_dh,
-          "GeologyDataPrep/real_output/acc_invoices_not_in_raw_dh.csv", 
+          "GeologyDataPrep/real_output/loan_invoices_not_in_raw_dh.csv", 
           na = "")
 
-write_csv(acc_invoices, 
-          "GeologyDataPrep/real_output/acc_invoices.csv", 
+write_csv(loan_invoices, 
+          "GeologyDataPrep/real_output/loan_invoices.csv", 
           na = "")
 
-write_csv(acc_objects_prepped, 
-          "GeologyDataPrep/real_output/acc_objects_prepped.csv", 
+write_csv(loan_objects_prepped, 
+          "GeologyDataPrep/real_output/loan_objects_prepped.csv", 
           na = "")
 
