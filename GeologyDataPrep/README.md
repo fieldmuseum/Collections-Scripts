@@ -13,6 +13,7 @@
   
 ## To Run:
 
-1. Add input data ("DH - Invoices" & "DH_Invoice List_Full") to the "raw_data" subdir in this repo.
-2. In an R console, run:  `source("GeologyDataPrep/loan_prep.R")`
-3. Check output CSVs in the "real_output" subdir in this repo.
+1. Add a "raw_data" subdirectory in this "GeologyDataPrep" directory.
+2. Add the input-data ("DH - Invoices" & "DH_Invoice List_Full") to the "raw_data" folder.
+3. Open the 'Collections-Scripts' R project in RStudio or VSCode, and in an R console, run:  `source("GeologyDataPrep/loan_prep.R")`
+4. Check output CSVs in the "real_output" subdir in this repo.
