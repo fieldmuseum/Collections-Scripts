@@ -82,15 +82,15 @@ if (!dir.exists("GeologyDataPrep/real_output/")) {
 
 if (NROW(not_in_raw_dh) > 0) {
   write_csv(not_in_raw_dh,
-            "GeologyDataPrep/real_output/loan_invoices_not_in_raw_dh_excel.csv", 
+            "GeologyDataPrep/real_output/loan_invoices_not_in_raw_dh_fromExcel.csv", 
             na = "")
 }
 
 write_csv(loan_invoices, 
-          "GeologyDataPrep/real_output/loan_invoices_excel.csv", 
+          "GeologyDataPrep/real_output/loan_invoices_fromExcel.csv", 
           na = "")
 
 write_csv(loan_objects_prepped, 
-          "GeologyDataPrep/real_output/loan_objects_excel.csv", 
+          "GeologyDataPrep/real_output/loan_objects_fromExcel.csv", 
           na = "")
 
