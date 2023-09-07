@@ -2,6 +2,7 @@
 # 2023-Sep-5, FMNH-IT
 
 library(readr)
+library(readxl)
 library(tidyr)
 
 # Check for input directory ####
@@ -15,7 +16,7 @@ if (!dir.exists("GeologyDataPrep/raw_data/")) {
 
 # Import loan data ####
   # NOTE:
-  # If the read_tsv functions below throw errors,
+  # If the read_tsv functions have encoding or parsing errors,
   # check that the script's filenames & extensions are correct.
 
 raw_dh_invoices <- read_tsv("GeologyDataPrep/raw_data/DH - Invoices",
@@ -82,15 +83,17 @@ if (!dir.exists("GeologyDataPrep/real_output/")) {
   
 }
 
-write_csv(not_in_raw_dh,
-          "GeologyDataPrep/real_output/loan_invoices_not_in_raw_dh.csv", 
-          na = "")
+if (NROW(not_in_raw_dh) > 0) {
+  write_csv(not_in_raw_dh,
+            "GeologyDataPrep/real_output/loan_invoices_not_in_raw_dh_tsv.csv", 
+            na = "")
+}
 
 write_csv(loan_invoices, 
-          "GeologyDataPrep/real_output/loan_invoices.csv", 
+          "GeologyDataPrep/real_output/loan_invoices_tsv.csv", 
           na = "")
 
 write_csv(loan_objects_prepped, 
-          "GeologyDataPrep/real_output/loan_objects_prepped.csv", 
+          "GeologyDataPrep/real_output/loan_objects_tsv.csv", 
           na = "")
 
