@@ -1,0 +1,2 @@
+# variables for 'EMuMVNotesTablePrep.R' script
+DATAHANDLING_DATA_IN="EMuDataHandling/emu_notes.csv"
