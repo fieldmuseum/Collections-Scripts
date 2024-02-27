@@ -2,12 +2,21 @@
 
 These scripts are meant to help users handle, reshape, and/or filter collections data from the EMu collections management system.
 
-**Note:** if input files are large (>1,000,000 rows), scripts may take a few minutes to input, run, and output data.
+**Note:** If input files are large (>1,000,000 rows), scripts may take a few minutes to input, run, and output data.
+
+## Setup:
+- Install R & RStudio or your IDE of choice. ([How-to])
+- Download or Clone this GitHub repo to your machine
+- Copy ".Renviron.example" to a new text file in the repo's main directory.
+  - Rename the copy ".Renviron"  (no other file extension.)
+  - In a text-editor, you can update the 'DATAHANDLING_DATA_IN' variable's filepath as needed.
+
 
 ## EMuMVNotesTablePrep.R - 'Multivalue Notes Table' prep-script
 
 This filters for particular ecatalogue note types (default = "Full description"), and merges the 'attribution' nested table into a single row per note.
-See [`EMuDataHandling/sample_data/mv_notes`](https://github.com/fieldmuseum/Collections-Scripts/tree/master/EMuDataHandling/sample_data/mv_notes) for examples of what to name CSVs, and [which fields](https://github.com/fieldmuseum/Collections-Scripts/blob/master/EMuDataHandling/sample_data/mv_notes/schema.ini) to report from EMu.
+- To run this script, add a text file in this directory
+- See [`EMuDataHandling/sample_data/mv_notes`](https://github.com/fieldmuseum/Collections-Scripts/tree/master/EMuDataHandling/sample_data/mv_notes) for examples of what to name CSVs, and [which fields](https://github.com/fieldmuseum/Collections-Scripts/blob/master/EMuDataHandling/sample_data/mv_notes/schema.ini) to report from EMu.
 
 
 ## EMuTableSpread.R - 'Table Spread' script 
