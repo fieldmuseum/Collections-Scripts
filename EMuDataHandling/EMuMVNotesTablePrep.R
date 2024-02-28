@@ -19,8 +19,8 @@ if (nchar(Sys.getenv("DATAHANDLING_DATA_IN")) > 0) {
 mvtable <- read_csv(file=paste0(input_filepath,"Notes.csv"))
 
 # # filter if needed
-filter <- "Entry note"
-mvnotes <- mvtable[tolower(mvtable$NotKind) == tolower(filter),]
+filter <- c("Data entry", "Entry note")
+mvnotes <- mvtable[which(tolower(mvtable$NotKind) %in% tolower(filter)),]
 
 # merge in attribution/parties if needed
 if (file.exists(paste0(input_filepath, "NotNmnhA.csv"))) {
@@ -53,10 +53,41 @@ if (file.exists(paste0(input_filepath, "NotNmnhA.csv"))) {
                    attrib2,
                    by = "Notes_key",
                    all.x = TRUE)
+  
+  mvnotes <- mvnotes[order(mvnotes$irn),]
+  
 }
 
+mvnotes$seq <- sequence(rle(mvnotes$irn)$length)
 
-mvnotes[is.na(mvnotes)] <- ""
+# Pivot / prep mvnotes for import
+mvnotes_out <- pivot_wider(
+  mvnotes[,c("irn","seq",
+             colnames(mvnotes)[4:(NROW(colnames(mvnotes))-1)])],
+  id_cols = "irn", 
+  names_from = "seq", 
+  values_from = colnames(mvnotes)[4:(NROW(colnames(mvnotes))-1)])
+
+
+# Fix column names
+
+# ... for nested table - 'attributed to'
+colnames(mvnotes_out) <- gsub("(attr_)(\\d+)(_irn_)(\\d+)", 
+                              "NotNmnhAttributedToRef_nesttab(\\2:\\4).irn",
+                              colnames(mvnotes_out))
+
+# ... & for other Notes table-fields - 'attributed to'
+colnames(mvnotes_out) <- gsub("(.+)(_)(\\d+)", 
+                              "\\1(\\3)",
+                              colnames(mvnotes_out))
+
+
+# Drop attrib to 'summary' fields
+mvnotes_out <- mvnotes_out[,
+                           colnames(mvnotes_out)[
+                             grepl('summary', colnames(mvnotes_out)) == F
+                             ]
+                           ]
 
 
 # NOTE: Remember to relabel your columns
@@ -82,6 +113,6 @@ output_filepath <- paste0(output_dir, "notes_prep",
                           paste0("_", gsub("\\-|\\s+|\\:","",Sys.time())),
                           ".csv")
 
-write_csv(mvnotes, output_filepath, na="")
+write_csv(mvnotes_out, output_filepath, na="")
 
 print(paste("Prepped notes output is here: ", output_filepath))

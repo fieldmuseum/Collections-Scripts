@@ -17,6 +17,7 @@ These scripts are meant to help users handle, reshape, and/or filter collections
 This filters for particular ecatalogue note types (default = "Full description"), and merges the 'attribution' nested table into a single row per note.
 - To run this script, add a text file in this directory
 - See [`EMuDataHandling/sample_data/mv_notes`](https://github.com/fieldmuseum/Collections-Scripts/tree/master/EMuDataHandling/sample_data/mv_notes) for examples of what to name CSVs, and [which fields](https://github.com/fieldmuseum/Collections-Scripts/blob/master/EMuDataHandling/sample_data/mv_notes/schema.ini) to report from EMu.
+  - In EMu / Catalogue, the "Notes Cleanup Report" may include a ready-to-go set of fields.
 
 
 ## EMuTableSpread.R - 'Table Spread' script 
