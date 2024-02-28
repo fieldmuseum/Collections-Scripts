@@ -82,7 +82,7 @@ colnames(mvnotes_out) <- gsub("(.+)(_)(\\d+)",
                               colnames(mvnotes_out))
 
 
-# Drop attrib to 'summary' fields
+# Drop attributed-to 'summary' fields
 mvnotes_out <- mvnotes_out[,
                            colnames(mvnotes_out)[
                              grepl('summary', colnames(mvnotes_out)) == F
