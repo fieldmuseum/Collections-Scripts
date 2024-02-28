@@ -18,9 +18,9 @@ if (nchar(Sys.getenv("DATAHANDLING_DATA_IN")) > 0) {
 # point to your csv files
 mvtable <- read_csv(file=paste0(input_filepath,"Notes.csv"))
 
-# filter if needed
-filter = "Full description"
-mvnotes <- mvtable[tolower(mvtable$NotKind) == tolower(filter),] 
+# # filter if needed
+filter <- "Entry note"
+mvnotes <- mvtable[tolower(mvtable$NotKind) == tolower(filter),]
 
 # merge in attribution/parties if needed
 if (file.exists(paste0(input_filepath, "NotNmnhA.csv"))) {
@@ -30,7 +30,7 @@ if (file.exists(paste0(input_filepath, "NotNmnhA.csv"))) {
   attrib$seq <- sequence(rle(attrib$Notes_key)$length)
   
   attrib2 <- pivot_wider(attrib[,c("Notes_key","seq",
-                                   colnames(attrib)[3:NROW(colnames(attrib))-1])],
+                                   colnames(attrib)[3:(NROW(colnames(attrib))-1)])],
                          id_cols = "Notes_key", 
                          names_from = "seq", 
                          values_from = "NotNmnhAttr_irn_sum",
