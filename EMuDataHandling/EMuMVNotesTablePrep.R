@@ -73,7 +73,7 @@ mvnotes_out <- pivot_wider(
 
 # ... for nested table - 'attributed to'
 colnames(mvnotes_out) <- gsub("(attr_)(\\d+)(_irn_)(\\d+)", 
-                              "NotNmnhAttributedToRef_nesttab(\\2:\\4).irn",
+                              "NotNmnhAttributedToRef_nesttab(\\4:\\2).irn",
                               colnames(mvnotes_out))
 
 # ... & for other Notes table-fields - 'attributed to'
