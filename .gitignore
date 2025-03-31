@@ -4,6 +4,9 @@
 .RData
 .Ruserdata
 .Renviron
+.DS_Store
 
 */*/rsconnect/*/*
+*/raw_data*
 */real_data*
+*/real_output*

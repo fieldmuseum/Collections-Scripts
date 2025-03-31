@@ -1,0 +1,4 @@
+irn,NotKind(1),NotKind(2),NotKind(3),NotFisNotes(1),NotFisNotes(2),NotFisNotes(3),NotDate(1),NotDate(2),NotDate(3),NotNmnhAttributedToRef_nesttab(1:1).irn,NotNmnhAttributedToRef_nesttab(2:1).irn,NotNmnhAttributedToRef_nesttab(3:1).irn
+4467740,Data entry,Entry note,Entry note,test note 1,test note row 2,even more notey notes in test note row 4,2014-02-26,2022-01-26,2010-11-02,32514,,
+4467741,Data entry,Entry note,,a bit of data-entry info / test note 2,more [data?] entry test-notes for row 3,,2014-02-26,2010-11-02,,32514,,
+4467742,Entry note,Entry note,,,test note after some annoying gap-rows,,,2022-01-26,,,,

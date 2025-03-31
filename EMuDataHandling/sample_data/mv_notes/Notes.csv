@@ -1,19 +1,14 @@
-Notes_key,ecatalogue_key,irn,CatAnthroCatalogNumber,CatObjectId,NotKind,NotFisNotes,NotDate
-1,1,1234,987,987.1,Full description,"People: name (of area)Description: item description.Notes: col. by person, Mon YYYY.  ""[illegible, 3 characters]""No imageCatalog card name MM-D-YYYY5Additional information from cited index card:Description: item description from people, place. Col. in YYYY.Measurements: not givenPhoto on card, neg. no. 1234 and 6789 name M-D-YYYY",
-2,1,1234,987,987.1,other note type,other note description,
-3,1,1234,987,987.1,other note type,other note description,
-4,1,1234,987,987.1,Researcher,Name noted updated item description,2019-06-24
-5,2,2345,876,876.2,Full description,count of items. initials MM/YYYY,
-6,2,2345,876,876.2,other note type,needs CRC Processing and CRC barcoding. initials MM/YYYY,
-7,2,2345,876,876.2,Researcher,description,
-8,2,2345,876,876.2,Object history,"tag reads, location, notes",
-9,3,3456,765,765.3,Full description,count of items. initials MM/YYYY,
-10,3,3456,765,765.3,other note type,needs processing,
-11,3,3456,765,765.3,Researcher,description,
-12,3,3456,765,765.3,Object history,"tag reads, location, notes",
-13,4,4567,654,654.nosub[1],Full description,"count inventoried, date",
-14,4,4567,654,654.nosub[1],other note type,needs processing,
-15,4,4567,654,654.nosub[1],Researcher,description,
-16,4,4567,654,654.nosub[1],Sub description,description,
-17,4,4567,654,654.nosub[1],Object history,tag note description 11/2006 12 item description,
-18,4,4567,654,654.nosub[1],Object history,"""note description history"" is written on envelope, interpretation",2022-10-06
+Notes_key,ecatalogue_key,irn,NotKind,NotFisNotes,NotDate
+1,1,4467740,"Data entry","test note 1",2014-02-26
+2,1,4467740,"Entry note","test note row 2",2022-01-26
+3,1,4467740,"Type diagnosis","a longer thing for test note 3",
+4,1,4467740,"Entry note","even more notey notes in test note row 4",2010-11-02
+5,2,4467741,"Type diagnosis","test note 1 -  types?",
+6,2,4467741,"Data entry","a bit of data-entry info / test note 2",2014-02-26
+7,2,4467741,"Entry note","more [data?] entry test-notes for row 3",2010-11-02
+8,2,4467741,"Classification","something about classification -- could go to another field.  test note row 4 for now.",2022-01-26
+9,3,4467742,"Type diagnosis","test note 1 - more type data?",
+10,3,4467742,"","",
+11,3,4467742,"Entry note","",
+12,3,4467742,"Entry note","test note after some annoying gap-rows",2022-01-26
+13,3,4467742,"Description","Description data that would rather be in the DesKDescription0 field | corresponding DesKType_tab value",2024-02-23
