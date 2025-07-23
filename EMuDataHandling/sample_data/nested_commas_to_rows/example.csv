@@ -1,0 +1,76 @@
+Original Row ID,Orig Group,Photo description,Image sample,Photo Archive ID orig,Filename_indicator,Parsed_IDs
+1,1,Description 1,,image_name_1,,image_name_1
+2,1,Description 2,,image_name_2,,image_name_2
+3,1,Description 3,,image_name_3,,image_name_3
+4,1,Description 4,,image_name_4,,image_name_4
+14,1,Description 5,,image_name_5,,image_name_5
+15,1,Description 6,,ABC12345,,ABC12345
+16,1,Description 7,picture of X,Winter diorama: Img_3886_2c,,Img_3886_2c
+17,1,,,Spring diorama: Img_5268_019Ad,,Img_5268_019Ad
+18,1,,,Autumn diorama: Img_5269d_0928,,Img_5269d_0928
+26,1,,,"CSImg_40265
+",,"CSImg_40265
+"
+27,1,Description 8,,Img_90799d_FMBL342w,,Img_90799d_FMBL342w
+28,1,Description 9,,,,
+29,1,Description 10,,Img_90799d_FMBL344w,,Img_90799d_FMBL344w
+30,1,Description 11,,,,
+31,1,Description 12,,CSImg_50750,,CSImg_50750
+32,1,Description 13,,CSImg_44721,,CSImg_44721
+33,1,Description 14,,Img_92640_034d,,Img_92640_034d
+34,1,Description 15,exhibition display pictures,"Img_92545_001Ad, Img_90862_20d, Img_90846_173d",,Img_92545_001Ad|Img_90862_20d|Img_90846_173d
+35,1,Description 16,exhibition display pictures,"Img_91345_006d, Img_89695_16Ac",,Img_91345_006d|Img_89695_16Ac
+37,1,Description 18,,Img_1525od_008,,Img_1525od_008
+38,1,Description 19,,Img_09984d,,Img_09984d
+39,1,Description 20,overall picture,Img_09984d,,Img_09984d
+40,1,Description 21,,Img_80300,,Img_80300
+41,1,Description 22,,CSImg_40501,,CSImg_40501
+48,2,Description 23,,Img_88799_1c,,Img_88799_1c
+49,2,Description 24,,"Img_91704_012Ad, Img_91704_156d, CSA74981
+",,"Img_91704_012Ad|Img_91704_156d|CSA74981
+"
+50,3,Description 25,overall picture,"Img_92154_085d, Img_92154_005d, Img_92154_018d, Img_92140_045Ad, Img_92140_004Bd, ",,Img_92154_085d|Img_92154_005d|Img_92154_018d|Img_92140_045Ad|Img_92140_004Bd|
+51,3,Description 26,overall picture,"PS-10235_012A, PS-10235_049A, PS-10235_169A, PS-10235_004A, filename: FM_NTopening_052022_0949.jpg, filename: FM_NTopening_052022_0333.jpg, filename: FM_NTopening_052022_1426.jpg, filename: FM_NTopening_052022_jy_05.jpg",filename,PS-10235_012A|PS-10235_049A|PS-10235_169A|PS-10235_004A|filename: FM_NTopening_052022_0949.jpg|filename: FM_NTopening_052022_0333.jpg|filename: FM_NTopening_052022_1426.jpg|filename: FM_NTopening_052022_jy_05.jpg
+52,3,Description 27,overall picture,"Img_90960_461d, Img_90960_002Cd, Img_90960_314d",,Img_90960_461d|Img_90960_002Cd|Img_90960_314d
+53,3,Description 28,overall picture,"africa_exhibit_entrance.jpg, ",,africa_exhibit_entrance.jpg
+54,3,Description 29,overall picture,"Img_92363_014Ad, Img_92363_035d, Img_92363_055Ad
+
+",,"Img_92363_014Ad|Img_92363_035d|Img_92363_055Ad
+
+"
+55,3,Description 30,picture of gallery,"Img_92073_003d, Img_92073_008d, Img_12648_1c
+",,"Img_92073_003d|Img_92073_008d|Img_12648_1c
+"
+56,3,Description 31,picture of gallery,Img_92068_004d,,Img_92068_004d
+57,3,Description 32,picture of gallery,"Img_91343_109d, Img_91343_075d
+Img_91343_071d
+",,"Img_91343_109d|Img_91343_075d
+Img_91343_071d
+"
+58,3,Description 33,picture of gallery,"Img_92330_070Ad, Img_92335_087Ad, Img_92335_173Ad
+",,"Img_92330_070Ad|Img_92335_087Ad|Img_92335_173Ad
+"
+59,3,Description 34,picture of gallery,"filename: IMG_7123.JPG, filename: IMG_7101.JPG, filename: Main Forecourt new.jpg, Img_88790_78c",filename,filename: IMG_7123.JPG|filename: IMG_7101.JPG|filename: Main Forecourt new.jpg|Img_88790_78c
+60,3,Description 35,picture of gallery,,,
+61,3,Description 36,picture of gallery,"Img_91520_5994d, Img_91520_6003d, Img_91520_6055d
+Img_87422_o8c
+",,"Img_91520_5994d|Img_91520_6003d|Img_91520_6055d
+Img_87422_o8c
+"
+62,3,Description 37,picture of gallery,"Img_91735_106d, Img_91735_124d, Img_91735_210d
+",,"Img_91735_106d|Img_91735_124d|Img_91735_210d
+"
+63,3,Description 38,picture of gallery,,,
+64,3,Description 39,picture of gallery,"Img_91686_171d, filename: Img_91063_001d.jpg",filename,Img_91686_171d|filename: Img_91063_001d.jpg
+65,3,Description 40,picture of gallery,"Img_91522_6293d, Img_91522_6307d, Img_92061_007d, Img_14854d_024B, 
+
+",,Img_91522_6293d|Img_91522_6307d|Img_92061_007d|Img_14854d_024B|
+66,3,Description 41,picture of gallery,"Img_91521_6096d, Img_89104_5c",,Img_91521_6096d|Img_89104_5c
+67,3,Description 42,picture of gallery,"Img_91948_383d, Img_91948_240d, Img_91948_282d
+",,"Img_91948_383d|Img_91948_240d|Img_91948_282d
+"
+68,3,Description 43,picture of gallery,"Img_90698_08d, Img_88138c, ",,Img_90698_08d|Img_88138c|
+69,4,Description 44,,Img_84925,,Img_84925
+70,4,Description 45,,Img_85005,,Img_85005
+71,4,Description 46,,"©The Field Museum, Img_79754, Photographer John Bayalis.",,Img_79754
+72,4,Description 47,,"© The Field Museum, Img_4352c, Photographer John Weinstein.",,Img_4352c
