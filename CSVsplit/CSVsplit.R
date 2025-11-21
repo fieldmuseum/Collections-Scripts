@@ -29,7 +29,7 @@ all <- read_csv(paste0("CSVsplit/",csv_path, csv_filename))
 split_column_values <- unique(all[split_column])
 
 nest_columns <- colnames(all)[!colnames(all) == split_column]
- 
+
 # all_split <- all |>
 #   group_by(Tank) |>
 #   nest(data = c(`FMNH#`:Locality, Species))
@@ -52,4 +52,4 @@ for (i in 1:NROW(all_split)) {
   write_csv(group_table, out_name)
   
 }
- 
+
